@@ -161,7 +161,26 @@ public class SinglyLinkedList<T extends Comparable<T>> {
 
     // Elimina el nodo de una posicion especifica de la lista
     public void deleteNth(int position) {
-
+        SinglyLinkedList<T> nuevo = new SinglyLinkedList<T>();
+    	if(position < size) {
+    		int i=0;
+        	while(first != null) {
+        		if(position == i) {
+        			i++;
+        			first = first.getNext();//se pasa al siguiente nodo sin agregar nada
+        		}
+        		else {
+        			nuevo.addLast(first.getValue());//se agrega el nodo de la lista actual "first.getValue"
+        			first = first.getNext();
+        			i++;
+        		}
+        	}
+        	first = nuevo.first;
+        	size--;
+    	}
+    	else {
+    		System.out.println("Fuera de rango.");
+    	}
     }
 
     public static void main(final String[] args) {
