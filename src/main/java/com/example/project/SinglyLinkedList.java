@@ -1,6 +1,6 @@
 package com.example.project;
 
-public class SinglyLinkedList<T> {
+public class SinglyLinkedList<T extends Comparable<T>> {
     private Node<T> first; // Primero nodo de la lista
     private int size; // Tamano de la lista
 
@@ -100,7 +100,39 @@ public class SinglyLinkedList<T> {
 
     // Elimina aquellos nodos de la lista que esten duplicados
     public void deleteDuplicates() {
+        SinglyLinkedList<T> nuevo = new SinglyLinkedList<T>();
+    	invertir();//Se invierte los nodos enlazados de first
+    	while(first != null) {
+    		if(repeticiones(getFirst(), first) <= 1) {//se evalua cantidad de repeticiones
+    			nuevo.addLast(first.getValue());//se agrega a la nueva lista los nodos sin repetirse
+    		}
+    		first = first.getNext();
+    	}
+    	size = nuevo.size;
+    	first = nuevo.first;
+    	invertir();
+    }
 
+    //Metodo que indica la cantidad de repeticiones por comparacion del caracter con los nodos
+    public int repeticiones(T caracter, Node<T> nodo) {
+    	int cont = 0;
+    	while(nodo != null) {
+    		if(caracter.compareTo(nodo.getValue()) == 0) {//comparacion del caracter con el valor del nodo actual
+    			cont ++;//aumento de la cantidad de repeticiones
+    		}
+    		nodo = nodo.getNext();
+    	}
+    	return cont;
+    }
+    
+    //metodo para invertir la lista
+    public void invertir() {
+    	SinglyLinkedList<T> nuevo = new SinglyLinkedList<T>();
+    	while(first != null) {
+    		nuevo.addFirst(first.getValue());//se agrega los nodos siempre al empezar
+    		first = first.getNext();
+    	}
+    	first = nuevo.first;
     }
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
