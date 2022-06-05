@@ -137,7 +137,26 @@ public class SinglyLinkedList<T extends Comparable<T>> {
 
     // Inserta un nuevo nodo en una posicion especifica de la lista
     public void insertNth(T data, int position) {
-
+        SinglyLinkedList<T> nuevo = new SinglyLinkedList<T>();
+    	if(position <= size) {
+    		int i = 0;
+    		for(int j = 0; j < size+1; j++) {
+    			if(position == i) {//comparacion de la posicion del nodo con el contador
+        			i++;
+        			nuevo.addLast(data);
+        		}
+    			else {
+        			nuevo.addLast(first.getValue());//se agrega los nodos de la lista actual
+        			first = first.getNext();
+        			i++;
+        		}
+    		}
+    		size = nuevo.size;
+    		first = nuevo.first;
+    	}
+    	else {
+    		System.out.println("Fuera de rango.");
+    	}
     }
 
     // Elimina el nodo de una posicion especifica de la lista
